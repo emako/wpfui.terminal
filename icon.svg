@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background rounded rectangle -->
+  <rect x="4" y="4" width="120" height="120" rx="16" ry="16" fill="#1e1e1e"/>
+  
+  <!-- Terminal window frame -->
+  <rect x="12" y="12" width="104" height="104" rx="8" ry="8" fill="#2d2d2d" stroke="#3d3d3d" stroke-width="2"/>
+  
+  <!-- Title bar -->
+  <rect x="12" y="12" width="104" height="20" rx="8" ry="8" fill="#3d3d3d"/>
+  <rect x="12" y="24" width="104" height="8" fill="#3d3d3d"/>
+  
+  <!-- Window control buttons -->
+  <circle cx="28" cy="22" r="5" fill="#ff5f56"/>
+  <circle cx="44" cy="22" r="5" fill="#ffbd2e"/>
+  <circle cx="60" cy="22" r="5" fill="#27c93f"/>
+  
+  <!-- Terminal prompt line 1 -->
+  <text x="24" y="56" font-family="Consolas, monospace" font-size="14" fill="#27c93f">$</text>
+  <text x="38" y="56" font-family="Consolas, monospace" font-size="14" fill="#e0e0e0">_</text>
+  
+  <!-- Terminal prompt line 2 -->
+  <text x="24" y="76" font-family="Consolas, monospace" font-size="12" fill="#569cd6">&gt;</text>
+  <rect x="36" y="66" width="60" height="14" fill="#404040" opacity="0.5"/>
+  
+  <!-- Blinking cursor -->
+  <rect x="38" y="46" width="8" height="14" fill="#27c93f">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Decorative code lines -->
+  <rect x="24" y="88" width="45" height="4" rx="2" fill="#569cd6" opacity="0.7"/>
+  <rect x="24" y="98" width="70" height="4" rx="2" fill="#6a9955" opacity="0.7"/>
+</svg>

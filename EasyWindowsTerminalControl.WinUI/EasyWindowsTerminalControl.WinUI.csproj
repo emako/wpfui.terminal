@@ -12,17 +12,19 @@
     <Authors>MitchCapper</Authors>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageOutputPath>../Publish</PackageOutputPath>
-    <PackageProjectUrl>https://github.com/MitchCapper/EasyWindowsTerminalControl</PackageProjectUrl>
+	<PackageIcon>icon.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/MitchCapper/EasyWindowsTerminalControl</PackageProjectUrl>
 
     <!-- Include NuGet packaging settings -->
     <IncludeBuildOutput>true</IncludeBuildOutput>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="NativeMethods.txt" />
+	<ItemGroup>
+		<AdditionalFiles Include="NativeMethods.txt" />
 	<None Include="../README.md" Pack="true" PackagePath="\"/>
-  </ItemGroup>
+	<None Include="../icon.png" Pack="true" PackagePath="\"/>
+	</ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250310001" />
