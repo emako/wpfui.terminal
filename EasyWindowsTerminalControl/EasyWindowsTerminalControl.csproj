@@ -13,8 +13,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-	  <DefineConstants>$(DefineConstants);WPF</DefineConstants>
-	  <Title>A high performance full-feature WPF terminal control that uses the Official Windows Terminal console host for the backend driver</Title>
+		<DefineConstants>$(DefineConstants);WPF</DefineConstants>
+		<Title>A high performance full-feature WPF terminal control that uses the Official Windows Terminal console host for the backend driver</Title>
 	</PropertyGroup>
 
 	<ItemGroup>

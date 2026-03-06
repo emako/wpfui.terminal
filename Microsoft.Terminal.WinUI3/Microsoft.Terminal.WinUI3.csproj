@@ -50,12 +50,12 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="TerminalControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
+		<None Update="TerminalControl.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</None>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="build\" />
+		<Folder Include="build\" />
 	</ItemGroup>
 	<Target Name="RemoveWpfFrameworkReference" AfterTargets="AddTransitiveFrameworkReferences">
 		<ItemGroup>
@@ -63,7 +63,7 @@
 		</ItemGroup>
 	</Target>
 
-	
+
 	<Target Name="CollectNativePackContents">
 		<ItemGroup>
 			<None Include="$(PkgCI_Microsoft_Terminal_Wpf)\runtimes\win-x86\native\Microsoft.Terminal.Control.dll">
