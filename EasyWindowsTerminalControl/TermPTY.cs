@@ -83,8 +83,6 @@ namespace EasyWindowsTerminalControl {
 				ConsoleOutStream = new FileStream(outputPipe.ReadSide, FileAccess.Read);
 				TermProcIsStarted = true;
 
-				TermReady?.Invoke(this, EventArgs.Empty);
-
 				// Store input pipe handle, and a writer for later reuse
 				_consoleInputPipeWriteHandle = inputPipe.WriteSide;
 				var st = new FileStream(_consoleInputPipeWriteHandle, FileAccess.Write);
@@ -92,8 +90,13 @@ namespace EasyWindowsTerminalControl {
 					_consoleInputWriter = new StreamWriter(st) { AutoFlush = true };
 				else
 					_consoleInputWriterB = new BinaryWriter(st);
+
+
+				TermReady?.Invoke(this, EventArgs.Empty);
+				
+				ReadOutputLoop(); // may have already been invoked by TermReady chain and having terminal connection assigned
+
 				// free resources in case the console is ungracefully closed (e.g. by the 'x' in the window titlebar)
-				ReadOutputLoop();
 				OnClose(() => DisposeResources(process, pseudoConsole, outputPipe, inputPipe, _consoleInputWriter));
 
 				process.WaitForExit();
