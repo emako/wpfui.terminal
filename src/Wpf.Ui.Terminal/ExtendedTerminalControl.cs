@@ -10,7 +10,7 @@ using Wpf.Ui.Terminal.Internals;
 
 namespace Wpf.Ui.Terminal;
 
-public class TerminalControl : UserControl
+public class ExtendedTerminalControl : UserControl
 {
     /// <summary>
     /// Converts Color to COLOREF, note that COLOREF does not support alpha channels so it is ignored
@@ -19,7 +19,7 @@ public class TerminalControl : UserControl
     /// <returns></returns>
     public static uint ColorToVal(Color color) => BitConverter.ToUInt32([color.R, color.G, color.B, 0], 0);
 
-    public TerminalControl()
+    public ExtendedTerminalControl()
     {
         InitializeComponent();
         SetKBCaptureOptions();
@@ -31,7 +31,7 @@ public class TerminalControl : UserControl
 
     private static void InputCaptureChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
     {
-        var cntrl = target as TerminalControl;
+        var cntrl = target as ExtendedTerminalControl;
         cntrl?.SetKBCaptureOptions();
     }
 
@@ -89,7 +89,7 @@ public class TerminalControl : UserControl
 
     private static void OnTermChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
     {
-        var cntrl = (target as TerminalControl);
+        var cntrl = (target as ExtendedTerminalControl);
         if (e.NewValue is TermPTY newTerm)
         {
             if (cntrl!.Terminal.IsLoaded)
@@ -251,19 +251,19 @@ public class TerminalControl : UserControl
         SetCursor(IsCursorVisible);
     }
 
-    public static readonly DependencyProperty InputCaptureProperty = DependencyProperty.Register(nameof(InputCapture), typeof(INPUT_CAPTURE), typeof(TerminalControl), new PropertyMetadata(INPUT_CAPTURE.TabKey | INPUT_CAPTURE.DirectionKeys, InputCaptureChanged));
+    public static readonly DependencyProperty InputCaptureProperty = DependencyProperty.Register(nameof(InputCapture), typeof(INPUT_CAPTURE), typeof(ExtendedTerminalControl), new PropertyMetadata(INPUT_CAPTURE.TabKey | INPUT_CAPTURE.DirectionKeys, InputCaptureChanged));
     public static readonly DependencyProperty ThemeProperty = PropHelper.GenerateWriteOnlyProperty((c) => c.Theme);
-    protected static readonly DependencyPropertyKey TerminalPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Terminal), typeof(Microsoft.Terminal.Wpf.TerminalControl), typeof(TerminalControl), new PropertyMetadata());
+    protected static readonly DependencyPropertyKey TerminalPropertyKey = DependencyProperty.RegisterReadOnly(nameof(Terminal), typeof(Microsoft.Terminal.Wpf.TerminalControl), typeof(ExtendedTerminalControl), new PropertyMetadata());
     public static readonly DependencyProperty TerminalProperty = TerminalPropertyKey.DependencyProperty;
-    public static readonly DependencyProperty ConPTYTermProperty = DependencyProperty.Register(nameof(ConPTYTerm), typeof(TermPTY), typeof(TerminalControl), new(null, OnTermChanged));
-    public static readonly DependencyProperty StartupCommandLineProperty = DependencyProperty.Register(nameof(StartupCommandLine), typeof(string), typeof(TerminalControl), new PropertyMetadata("powershell.exe"));
-    public static readonly DependencyProperty WorkingDirectoryProperty = DependencyProperty.Register(nameof(WorkingDirectory), typeof(string), typeof(TerminalControl), new PropertyMetadata(null));
-    public static readonly DependencyProperty LogConPTYOutputProperty = DependencyProperty.Register(nameof(LogConPTYOutput), typeof(bool), typeof(TerminalControl), new PropertyMetadata(false));
-    public static readonly DependencyProperty Win32InputModeProperty = DependencyProperty.Register(nameof(Win32InputMode), typeof(bool), typeof(TerminalControl), new PropertyMetadata(true));
+    public static readonly DependencyProperty ConPTYTermProperty = DependencyProperty.Register(nameof(ConPTYTerm), typeof(TermPTY), typeof(ExtendedTerminalControl), new(null, OnTermChanged));
+    public static readonly DependencyProperty StartupCommandLineProperty = DependencyProperty.Register(nameof(StartupCommandLine), typeof(string), typeof(ExtendedTerminalControl), new PropertyMetadata("powershell.exe"));
+    public static readonly DependencyProperty WorkingDirectoryProperty = DependencyProperty.Register(nameof(WorkingDirectory), typeof(string), typeof(ExtendedTerminalControl), new PropertyMetadata(null));
+    public static readonly DependencyProperty LogConPTYOutputProperty = DependencyProperty.Register(nameof(LogConPTYOutput), typeof(bool), typeof(ExtendedTerminalControl), new PropertyMetadata(false));
+    public static readonly DependencyProperty Win32InputModeProperty = DependencyProperty.Register(nameof(Win32InputMode), typeof(bool), typeof(ExtendedTerminalControl), new PropertyMetadata(true));
     public static readonly DependencyProperty IsReadOnlyProperty = PropHelper.GenerateWriteOnlyProperty((c) => c.IsReadOnly);
     public static readonly DependencyProperty IsCursorVisibleProperty = PropHelper.GenerateWriteOnlyProperty((c) => c.IsCursorVisible);
-    public static readonly DependencyProperty FontFamilyWhenSettingThemeProperty = DependencyProperty.Register(nameof(FontFamilyWhenSettingTheme), typeof(FontFamily), typeof(TerminalControl), new PropertyMetadata(new FontFamily("Cascadia Code")));
-    public static readonly DependencyProperty FontSizeWhenSettingThemeProperty = DependencyProperty.Register(nameof(FontSizeWhenSettingTheme), typeof(int), typeof(TerminalControl), new PropertyMetadata(12));
+    public static readonly DependencyProperty FontFamilyWhenSettingThemeProperty = DependencyProperty.Register(nameof(FontFamilyWhenSettingTheme), typeof(FontFamily), typeof(ExtendedTerminalControl), new PropertyMetadata(new FontFamily("Cascadia Code")));
+    public static readonly DependencyProperty FontSizeWhenSettingThemeProperty = DependencyProperty.Register(nameof(FontSizeWhenSettingTheme), typeof(int), typeof(ExtendedTerminalControl), new PropertyMetadata(12));
 
-    private class PropHelper : DepPropHelper<TerminalControl>;
+    private class PropHelper : DepPropHelper<ExtendedTerminalControl>;
 }

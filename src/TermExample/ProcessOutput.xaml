@@ -12,7 +12,7 @@
     Background="{Binding BackroundColorBrush}"
     mc:Ignorable="d">
     <Grid>
-        <t:TerminalControl
+        <t:ExtendedTerminalControl
             x:Name="basicTermControl"
             Margin="0,0,0,30"
             FontFamilyWhenSettingTheme="Consolas"
