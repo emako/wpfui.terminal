@@ -4,8 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using Wpf.Ui.Terminal;
-
-//using TerminalControl = Microsoft.Terminal.Wpf.TerminalControl;
 using TerminalControl = Wpf.Ui.Terminal.TerminalControl;
 
 namespace TermExample;
@@ -50,11 +48,10 @@ public partial class MainWindow : Window
 
         public static SolidColorBrush BackroundColorBrush => new(BackroundColor);
 
-        //private TerminalTheme _Theme;
         public TerminalTheme Theme { get; set; } = new()
         {
             DefaultBackground = TerminalControl.ColorToVal(BackroundColor),
-            DefaultForeground = TerminalControl.ColorToVal(Colors.LightYellow),
+            DefaultForeground = TerminalControl.ColorToVal(Colors.White),
             DefaultSelectionBackground = 0xcccccc,
             //SelectionBackgroundAlpha = 0.5f,
             CursorStyle = CursorStyle.BlinkingBar,
