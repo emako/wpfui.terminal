@@ -14,8 +14,8 @@ namespace TermExample;
 public partial class ProcessOutput : Window
 {
     /*
-		This demo uses the highlight syntax highlight generator to highlight files and put to the console.   You need highlight version 4.6 or greater which has been released! see http://andre-simon.de/zip/download.php download and unzip the x64 version somewhere and set highlight path to it
-		*/
+        This demo uses the highlight syntax highlight generator to highlight files and put to the console.   You need highlight version 4.6 or greater which has been released! see http://andre-simon.de/zip/download.php download and unzip the x64 version somewhere and set highlight path to it
+        */
 
     public ProcessOutput()
     {

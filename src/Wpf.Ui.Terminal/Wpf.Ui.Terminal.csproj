@@ -33,22 +33,12 @@
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
         <PackSatelliteAssemblies>false</PackSatelliteAssemblies>
         <NoWarn>$(NoWarn);NETSDK1206</NoWarn>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)' == 'Release'">
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFrameworks>net8.0-windows;net9.0-windows;net10.0-windows;</TargetFrameworks>
     </PropertyGroup>
-
-    <ItemGroup>
-        <None Remove="Resources\Fonts\*.ttf" />
-        <None Remove="Resources\Images\*.png" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Resource Include="Resources\Fonts\*.ttf" />
-        <Resource Include="Resources\Images\*.png" />
-    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="" />

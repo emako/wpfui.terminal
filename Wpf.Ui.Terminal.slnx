@@ -1,4 +1,9 @@
 <Solution>
-  <Project Path="src/TermExample/TermExample.csproj" Id="0bb63797-3a53-4237-b333-dae901e7172b" />
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="src/TermExample/TermExample.csproj" Id="0bb63797-3a53-4237-b333-dae901e7172b">
+    <Platform Project="x64" />
+  </Project>
   <Project Path="src/Wpf.Ui.Terminal/Wpf.Ui.Terminal.csproj" />
 </Solution>
