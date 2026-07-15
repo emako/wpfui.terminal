@@ -10,7 +10,7 @@ using Wpf.Ui.Terminal.Internals;
 
 namespace Wpf.Ui.Terminal;
 
-public class ExtendedTerminalControl : UserControl
+public class ExtendedTerminalControl : UserControl, IDisposable
 {
     /// <summary>
     /// Converts Color to COLOREF, note that COLOREF does not support alpha channels so it is ignored
@@ -121,6 +121,19 @@ public class ExtendedTerminalControl : UserControl
         return ret!;
     }
 
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposing) return;
+        var term = DisconnectConPTYTerm();
+        term?.Dispose();
+    }
+
     public string StartupCommandLine
     {
         get => (string)GetValue(StartupCommandLineProperty);
@@ -173,7 +186,31 @@ public class ExtendedTerminalControl : UserControl
         Focusable = true;
         Terminal.Focusable = true;
         this.GotFocus += (_, _) => Terminal.Focus();
+        //Dispose when the owning Window actually closes, not merely when this control leaves the visual tree
+        //(Unloaded also fires on e.g. a TabControl switching tabs, which would kill the running process unintentionally)
+        this.Loaded += OnControlLoaded;
+        this.Unloaded += OnControlUnloaded;
     }
+
+    private Window? _ownerWindow;
+
+    private void OnControlLoaded(object sender, RoutedEventArgs e)
+    {
+        _ownerWindow = Window.GetWindow(this);
+        if (_ownerWindow != null)
+            _ownerWindow.Closed += OnOwnerWindowClosed;
+    }
+
+    private void OnControlUnloaded(object sender, RoutedEventArgs e)
+    {
+        if (_ownerWindow != null)
+        {
+            _ownerWindow.Closed -= OnOwnerWindowClosed;
+            _ownerWindow = null;
+        }
+    }
+
+    private void OnOwnerWindowClosed(object? sender, EventArgs e) => Dispose();
 
     void MainThreadRun(Action action) => Dispatcher.Invoke(action);
 
@@ -200,12 +237,7 @@ public class ExtendedTerminalControl : UserControl
         {
             try
             {
-                oldTerm?.CloseStdinToApp();
-            }
-            catch { }
-            try
-            {
-                oldTerm?.StopExternalTermOnly();
+                oldTerm?.Dispose(); //closes stdin, kills the external process, and closes the pseudoconsole (hidden conhost/OpenConsole host)
             }
             catch { }
         }

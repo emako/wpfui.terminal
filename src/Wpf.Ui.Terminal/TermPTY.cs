@@ -15,7 +15,7 @@ namespace Wpf.Ui.Terminal;
 /// <summary>
 /// Class for managing communication with the underlying console, and communicating with its pseudoconsole.
 /// </summary>
-public class TermPTY : ITerminalConnection
+public class TermPTY : ITerminalConnection, IDisposable
 {
     protected class InternalProcessFactory : IProcessFactory
     {
@@ -178,6 +178,23 @@ public class TermPTY : ITerminalConnection
     {
         if (Process?.HasExited != false) return;
         Process.Kill();
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposing) return;
+        CloseStdinToApp();
+        StopExternalTermOnly();
+        TheConsole?.Dispose(); //closes the pseudoconsole, which tears down the hidden conhost/OpenConsole host process
+        //Do not dispose ConsoleOutStream here: ReadOutputLoop (running on its own background thread) still owns
+        //reading from it and will unwind itself once TheConsole.Dispose() above causes EOF; disposing it from this
+        //thread concurrently would race with that read.
     }
 
     /// <summary>
