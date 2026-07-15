@@ -40,6 +40,8 @@ public partial class MainWindow : Window
 
         public static string StartupCommand => "powershell.exe";
 
+        public static string WorkingDirectory => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
         private static Color AlphaOverrideColor(Color color, byte alphaOverride) => Color.FromArgb(alphaOverride, color.R, color.G, color.B);
 
         private static readonly Color BackroundColor = Color.FromArgb(255, 0, 0, 30);

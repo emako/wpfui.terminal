@@ -24,7 +24,7 @@ public interface IProcess : IDisposable
 
 public interface IProcessFactory
 {
-    public IProcess Start(string command, nuint attributes, PseudoConsole console);
+    public IProcess Start(string command, nuint attributes, PseudoConsole console, string? workingDirectory = null);
 }
 
 /// <summary>
@@ -83,10 +83,10 @@ public static class ProcessFactory
     /// <summary>
     /// Start and configure a process. The return value represents the process and should be disposed.
     /// </summary>
-    public static WrappedProcess Start(string command, nuint attributes, PseudoConsole console)
+    public static WrappedProcess Start(string command, nuint attributes, PseudoConsole console, string? workingDirectory = null)
     {
         var startupInfo = ConfigureProcessThread(console.Handle, attributes);
-        var processInfo = RunProcess(ref startupInfo, command);
+        var processInfo = RunProcess(ref startupInfo, command, workingDirectory);
         return new(new Process(startupInfo, processInfo));
     }
 
@@ -138,7 +138,7 @@ public static class ProcessFactory
         return startupInfo;
     }
 
-    unsafe private static PROCESS_INFORMATION RunProcess(ref STARTUPINFOEXW sInfoEx, string commandLine)
+    unsafe private static PROCESS_INFORMATION RunProcess(ref STARTUPINFOEXW sInfoEx, string commandLine, string? workingDirectory = null)
     {
         uint securityAttributeSize = (uint)Marshal.SizeOf<SECURITY_ATTRIBUTES>();
         var pSec = new SECURITY_ATTRIBUTES { nLength = securityAttributeSize };
@@ -146,7 +146,7 @@ public static class ProcessFactory
         var info = sInfoEx;
         Span<char> spanChar = (commandLine + '\0').ToCharArray();
 
-        var success = PInvoke.CreateProcess(null, ref spanChar, pSec, tSec, false, PROCESS_CREATION_FLAGS.EXTENDED_STARTUPINFO_PRESENT, null, null, info.StartupInfo, out var pInfo);
+        var success = PInvoke.CreateProcess(null, ref spanChar, pSec, tSec, false, PROCESS_CREATION_FLAGS.EXTENDED_STARTUPINFO_PRESENT, null, workingDirectory, info.StartupInfo, out var pInfo);
 
         if (!success)
             throw new Win32Exception(Marshal.GetLastWin32Error(), "Could not create process.");

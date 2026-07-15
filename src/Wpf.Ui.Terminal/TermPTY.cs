@@ -19,7 +19,7 @@ public class TermPTY : ITerminalConnection
 {
     protected class InternalProcessFactory : IProcessFactory
     {
-        public IProcess Start(string command, nuint attributes, PseudoConsole console) => ProcessFactory.Start(command, attributes, console);
+        public IProcess Start(string command, nuint attributes, PseudoConsole console, string? workingDirectory = null) => ProcessFactory.Start(command, attributes, console, workingDirectory);
     }
 
     private static readonly bool IsDesignMode = DesignerProperties.GetIsInDesignMode(new DependencyObject());
@@ -72,7 +72,8 @@ public class TermPTY : ITerminalConnection
     /// <param name="consoleWidth">The width (in characters) to start the pseudoconsole with. Defaults to 30.</param>
     /// <param name="logOutput">Whether to log the output of the console to a file. Defaults to false.</param>
     /// <param name="factory">While not recommended, you can provide your own process factory for more granular control over process creation</param>
-    public void Start(string command, int consoleWidth = 80, int consoleHeight = 30, bool logOutput = false, IProcessFactory factory = null!)
+    /// <param name="workingDirectory">The working directory for the process. Defaults to null (inherits current process working directory).</param>
+    public void Start(string command, int consoleWidth = 80, int consoleHeight = 30, bool logOutput = false, IProcessFactory factory = null!, string? workingDirectory = null)
     {
         if (Process != null)
             throw new Exception("Called Start on ConPTY term after already started");
@@ -88,7 +89,7 @@ public class TermPTY : ITerminalConnection
         using (var inputPipe = new PseudoConsolePipe())
         using (var outputPipe = new PseudoConsolePipe())
         using (var pseudoConsole = PseudoConsole.Create(inputPipe.ReadSide, outputPipe.WriteSide, consoleWidth, consoleHeight))
-        using (var process = factory.Start(command, PInvoke.PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE, pseudoConsole))
+        using (var process = factory.Start(command, PInvoke.PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE, pseudoConsole, workingDirectory))
         {
             Process = process;
             TheConsole = pseudoConsole;

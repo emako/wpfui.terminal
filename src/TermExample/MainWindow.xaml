@@ -23,7 +23,8 @@
             LogConPTYOutput="True"
             StartupCommandLine="{Binding StartupCommand}"
             Theme="{Binding Theme, Mode=OneWay}"
-            Win32InputMode="True">
+            Win32InputMode="True"
+            WorkingDirectory="{Binding WorkingDirectory}">
             <t:TerminalControl.Resources>
                 <Style BasedOn="{StaticResource {x:Type ScrollBar}}" TargetType="ScrollBar">
                     <!--  Lazy Theming  -->
