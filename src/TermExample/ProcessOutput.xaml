@@ -1,0 +1,46 @@
+<Window
+    x:Class="TermExample.ProcessOutput"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TermExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:t="http://schemas.lepo.co/wpfui/2022/xaml/terminal"
+    Title="ProcessOutput"
+    Width="1200"
+    Height="650"
+    Background="{Binding BackroundColorBrush}"
+    mc:Ignorable="d">
+    <Grid>
+        <t:TerminalControl
+            x:Name="basicTermControl"
+            Margin="0,0,0,30"
+            FontFamilyWhenSettingTheme="Consolas"
+            IsCursorVisible="False"
+            IsReadOnly="True"
+            StartupCommandLine="{Binding StartupCommand}"
+            Theme="{Binding Theme}"
+            Win32InputMode="False" />
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Orientation="Horizontal">
+            <Button
+                Margin="5"
+                Click="SelectFileClicked"
+                Content="Highlight File" />
+            <Button
+                Margin="5"
+                Click="CloseSTDINClicked"
+                Content="Close Process STDIN" />
+            <Button
+                Margin="5"
+                Click="ClearConsoleSoft"
+                Content="Clear Soft" />
+            <Button
+                Margin="5"
+                Click="ClearConsoleHard"
+                Content="Clear Hard" />
+        </StackPanel>
+    </Grid>
+</Window>
