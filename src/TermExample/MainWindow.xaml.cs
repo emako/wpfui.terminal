@@ -117,5 +117,10 @@ public partial class MainWindow : Window
         wind.Show();
     }
 
+    private void DisposeClicked(object sender, RoutedEventArgs e)
+    {
+        basicTermControl.Dispose();
+    }
+
     private static void MessageBoxShow(string msg) => MessageBox.Show(msg);
 }

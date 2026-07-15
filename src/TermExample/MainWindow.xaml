@@ -57,6 +57,10 @@
                 Margin="5"
                 Click="ShowProcessOutputClicked"
                 Content="Process Output Sample" />
+            <Button
+                Margin="5"
+                Click="DisposeClicked"
+                Content="Dispose" />
         </StackPanel>
     </Grid>
 </Window>
