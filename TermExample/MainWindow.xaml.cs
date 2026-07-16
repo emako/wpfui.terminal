@@ -124,6 +124,7 @@ namespace TermExample.WinUI {
 			else
 				basicTermControl.DisconnectConPTYTerm();
 			wind.Show();
+			MessageBoxShow("Duplicate window created, only new content is output (so you may need to send a command/key");
 		}
 
 		private void MirrorSizeChanged(object sender) {

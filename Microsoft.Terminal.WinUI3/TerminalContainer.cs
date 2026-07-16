@@ -25,7 +25,6 @@ namespace Microsoft.Terminal.WinUI3 {
 		private ITerminalConnection connection;
 		private HWND hwnd;
 		private IntPtr terminal;
-		private DispatcherTimer blinkTimer;
 		private NativeMethods.ScrollCallback scrollCallback;
 		private NativeMethods.WriteCallback writeCallback;
 
@@ -37,20 +36,6 @@ namespace Microsoft.Terminal.WinUI3 {
 			this.MessageHook += this.TerminalContainer_MessageHook;
 			this.GettingFocus += TerminalContainer_GettingFocus;
 			this.IsTabStop=false;
-
-			var blinkTime = NativeMethods.GetCaretBlinkTime();
-
-			if (blinkTime == uint.MaxValue) {
-				return;
-			}
-
-			this.blinkTimer = new DispatcherTimer();
-			this.blinkTimer.Interval = TimeSpan.FromMilliseconds(blinkTime);
-			this.blinkTimer.Tick += (_, __) => {
-				if (this.terminal != IntPtr.Zero) {
-					NativeMethods.TerminalBlinkCursor(this.terminal);
-				}
-			};
 		}
 		internal void PassFocus(){
 			NativeMethods.SetFocus(this.hwnd);
@@ -291,11 +276,6 @@ namespace Microsoft.Terminal.WinUI3 {
 				NativeMethods.TerminalDpiChanged(this.terminal, (int)dpiScale.PixelsPerInchX);
 			}
 
-			if (NativeMethods.GetFocus() == this.hwnd) {
-				this.blinkTimer?.Start();
-			} else {
-				NativeMethods.TerminalSetCursorVisible(this.terminal, false);
-			}
 
 			return this.hwnd;
 		}
@@ -327,13 +307,10 @@ namespace Microsoft.Terminal.WinUI3 {
 			if (hwnd == this.hwnd) {
 				switch ((WindowsMessages)e.Message.MessageId) {
 					case WindowsMessages.SETFOCUS:
-						NativeMethods.TerminalSetFocus(this.terminal);
-						this.blinkTimer?.Start();
+                        NativeMethods.TerminalSetFocused(this.terminal, true);
 						break;
 					case WindowsMessages.KILLFOCUS:
-						NativeMethods.TerminalKillFocus(this.terminal);
-						this.blinkTimer?.Stop();
-						NativeMethods.TerminalSetCursorVisible(this.terminal, false);
+                        NativeMethods.TerminalSetFocused(this.terminal, false);
 						break;
 					case WindowsMessages.MOUSEACTIVATE:
 						this.Focus(FocusState.Pointer);
@@ -341,12 +318,8 @@ namespace Microsoft.Terminal.WinUI3 {
 						break;
 					case WindowsMessages.SYSKEYDOWN: // fallthrough
 					case WindowsMessages.KeyDown: {
-							// WM_KEYDOWN lParam layout documentation: https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-keydown
-							NativeMethods.TerminalSetCursorVisible(this.terminal, true);
-
 							UnpackKeyMessage(wParam, lParam, out ushort vkey, out ushort scanCode, out ushort flags);
 							NativeMethods.TerminalSendKeyEvent(this.terminal, vkey, scanCode, flags, true);
-							this.blinkTimer?.Start();
 							break;
 						}
 

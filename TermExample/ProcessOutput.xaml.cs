@@ -33,8 +33,9 @@ namespace TermExample {
 		public const string HIGHLIGHT_PATH = @"highlight.exe";
 		public class DataBinds : INotifyPropertyChanged {
 			public void TriggerPropChanged(string prop) => PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(prop));
+			public string LocalHighlightPath =>  Environment.GetEnvironmentVariable("HIGHLIGHT_PATH") ?? HIGHLIGHT_PATH;
 			
-			public string StartupCommand => $"{HIGHLIGHT_PATH} --force -O truecolor --style=moria --service-mode --disable-echo --wrap";
+			public string StartupCommand => $"{LocalHighlightPath} --force -O truecolor --style=moria --service-mode --disable-echo --wrap";
 			private static uint ColorToVal(Color color) => BitConverter.ToUInt32(new byte[] { color.R, color.G, color.B, color.A }, 0);
 			private static readonly Color BackroundColor = Colors.DarkBlue;
 
@@ -53,7 +54,7 @@ namespace TermExample {
 
 
 		private const string USE_DELIMITER = "__NOTINMYFILES__";
-		private const char FILE_SEPARATOR = '\a';
+		private const char FILE_SEPARATOR = (char)1;//soh 
 		private void SelectFileClicked(object sender, RoutedEventArgs e) {
 			var picker = new OpenFileDialog();
 			picker.Title = "File to Highlight";
@@ -72,8 +73,11 @@ namespace TermExample {
 				await Task.Delay(500);
 			}
 
-			var writeStr = $"syntax={Path.GetFileName(fileName)};tag={USE_DELIMITER};line-length={basicTermControl.Terminal.Columns};eof={FILE_SEPARATOR}\n{txt}\n{FILE_SEPARATOR}\n";
+			var writeStr = $"tag={USE_DELIMITER};line-length={basicTermControl.Terminal.Columns};eof={FILE_SEPARATOR};syntax={Path.GetFileName(fileName)};\r\n[FILE_CONTENT]\n\n\r{FILE_SEPARATOR}\r\n";
+			writeStr=writeStr.Replace("[FILE_CONTENT]",txt);
+
 			writeStr = writeStr.Replace("\r", "").Replace("\n", "\r");
+			
 			startTime = DateTime.Now;
 			basicTermControl.ConPTYTerm.WriteToTerm(writeStr);
 			await Task.Delay(100);
