@@ -5,7 +5,7 @@
 
 A high performance full-feature WPF (.NET Framework and .NET Modern/6.0+) / (winui3* beta) terminal control that uses the [Official Windows Terminal](https://github.com/microsoft/terminal) console host for the backend driver.
 
-![](TermExample/Screenshot.png)
+![](https://github.com/mitchcapper/EasyWindowsTerminalControl/raw/master/TermExample/Screenshot.png)
 
 It features full 24-bit color support with ANSI/VT escape sequences (and colors), hardware / GPU accelerated rendering, mouse support, and true console interaction.  This is not just some isolated window hosted in c#, you have full api control for input, output, sizing, and the terminal theming.  The control can start any console application you want (or any default terminal like powershell, pwsh, cmd.exe).  It provides XAML properties for easy settings, and events for things like input/output interception.   The control can also passively log the terminal session and provide both the raw terminal sequence (including all VT codes) and the standard UTF-8 human readable text.
 
