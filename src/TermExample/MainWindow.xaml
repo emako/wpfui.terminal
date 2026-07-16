@@ -24,14 +24,7 @@
             StartupCommandLine="{Binding StartupCommand}"
             Theme="{Binding Theme, Mode=OneWay}"
             Win32InputMode="True"
-            WorkingDirectory="{Binding WorkingDirectory}">
-            <t:ExtendedTerminalControl.Resources>
-                <Style BasedOn="{StaticResource {x:Type ScrollBar}}" TargetType="ScrollBar">
-                    <!--  Lazy Theming  -->
-                    <Setter Property="Opacity" Value="0.8" />
-                </Style>
-            </t:ExtendedTerminalControl.Resources>
-        </t:ExtendedTerminalControl>
+            WorkingDirectory="{Binding WorkingDirectory}" />
 
         <StackPanel
             Grid.Row="1"
