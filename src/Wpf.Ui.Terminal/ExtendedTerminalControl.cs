@@ -197,17 +197,13 @@ public class ExtendedTerminalControl : UserControl, IDisposable
     private void OnControlLoaded(object sender, RoutedEventArgs e)
     {
         _ownerWindow = Window.GetWindow(this);
-        if (_ownerWindow != null)
-            _ownerWindow.Closed += OnOwnerWindowClosed;
+        _ownerWindow?.Closed += OnOwnerWindowClosed;
     }
 
     private void OnControlUnloaded(object sender, RoutedEventArgs e)
     {
-        if (_ownerWindow != null)
-        {
-            _ownerWindow.Closed -= OnOwnerWindowClosed;
-            _ownerWindow = null;
-        }
+        _ownerWindow?.Closed -= OnOwnerWindowClosed;
+        _ownerWindow = null;
     }
 
     private void OnOwnerWindowClosed(object? sender, EventArgs e) => Dispose();
