@@ -27,7 +27,11 @@ namespace EasyWindowsTerminalControl.Internals {
 
 			public bool HasExited => Process.HasExited;
 			public void WaitForExit() => Process.WaitForExit();
-			public void Kill(bool EntireProcessTree = false) => Process.Kill(EntireProcessTree);
+			public void Kill(bool EntireProcessTree = false) => Process.Kill(
+#if ! NET47_OR_GREATER
+				EntireProcessTree
+#endif
+				);
 
 			private System.Diagnostics.Process _Process;
 			private bool IsDisposed;

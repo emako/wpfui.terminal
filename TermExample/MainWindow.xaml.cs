@@ -66,7 +66,9 @@ namespace TermExample.WinUI {
 			private static Color AlphaOverrideColor(Color color, byte alphaOverride) => Color.FromArgb(alphaOverride, color.R, color.G, color.B);
 
 			private static readonly Color BackroundColor = Color.FromArgb(255, 0, 0, 30);
+#if ! NET47_OR_GREATER
 			private static Windows.UI.Color BackroundColorUI => Windows.UI.Color.FromArgb(BackroundColor.A, BackroundColor.R, BackroundColor.G, BackroundColor.B);
+#endif
 
 			public event PropertyChangedEventHandler PropertyChanged;
 

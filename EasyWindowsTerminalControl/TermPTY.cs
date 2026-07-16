@@ -53,7 +53,7 @@ namespace EasyWindowsTerminalControl {
 
 
 		/// <summary>
-		/// Start the pseudoconsole and run the process as shown in 
+		/// Start the pseudoconsole and run the process as shown in
 		/// https://docs.microsoft.com/en-us/windows/console/creating-a-pseudoconsole-session#creating-the-pseudoconsole
 		/// </summary>
 		/// <param name="command">the command to run, e.g. cmd.exe</param>
@@ -93,7 +93,7 @@ namespace EasyWindowsTerminalControl {
 
 
 				TermReady?.Invoke(this, EventArgs.Empty);
-				
+
 				ReadOutputLoop(); // may have already been invoked by TermReady chain and having terminal connection assigned
 
 				// free resources in case the console is ungracefully closed (e.g. by the 'x' in the window titlebar)
@@ -132,7 +132,7 @@ namespace EasyWindowsTerminalControl {
 			_consoleInputWriterB.Flush();
 		}
 		/// <summary>
-		/// Close the input stream to the process (will send EOF if attempted to be read). 
+		/// Close the input stream to the process (will send EOF if attempted to be read).
 		/// </summary>
 		public void CloseStdinToApp() {
 			_consoleInputWriter?.Close();
@@ -219,7 +219,6 @@ namespace EasyWindowsTerminalControl {
 				state.curBuffer = state.entireBuffer.Slice(0);
 
 				while ((state.readChars = reader.Read(state.curBuffer)) != 0) {
-					//					Debug.WriteLine($"Read: {read}");
 
 					var sendSpan = HandleRead(ref state);
 
@@ -271,7 +270,7 @@ namespace EasyWindowsTerminalControl {
 		}
 		public void SetCursorVisibility(bool visible) => WriteToUITerminal("\x1b[?25" + (visible ? 'h' : 'l'));
 		/// <summary>
-		/// 
+		///
 		/// </summary>
 		/// <param name="fullReset">Means near all parameters of the term are reset to defaults rather than just clearing the screen</param>
 		public void ClearUITerminal(bool fullReset = false) => WriteToUITerminal(fullReset ? "\x001bc\x1b]104\x1b\\" : "\x1b[H\x1b[2J\u001b[3J");

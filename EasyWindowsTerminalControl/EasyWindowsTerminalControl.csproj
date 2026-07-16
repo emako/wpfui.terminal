@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
+		<TargetFrameworks>net472;net48;net481;net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
 		<PlatformTarget>x64</PlatformTarget>
 		<Platforms>x64</Platforms>
 		<UseWpf>true</UseWpf>
-		<Version>1.0.37</Version>
+		<Version>1.0.38</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>icon.png</PackageIcon>
+		<LangVersion>latest</LangVersion>
 		<PackageOutputPath>../Publish</PackageOutputPath>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
@@ -31,7 +32,9 @@
 		</PackageReference>
 	</ItemGroup>
 
-
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472' Or '$(TargetFramework)' == 'net48' Or '$(TargetFramework)' == 'net481'">
+		<PackageReference Include="System.Memory" Version="4.6.3" />
+	</ItemGroup>
 
 </Project>
 

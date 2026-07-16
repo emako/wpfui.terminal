@@ -3,7 +3,7 @@
 [![EasyWindowsTerminalControl](https://img.shields.io/nuget/v/EasyWindowsTerminalControl.svg?style=flat&label=EasyWindowsTerminalControl)](https://www.nuget.org/packages/EasyWindowsTerminalControl/)
 [![EasyWindowsTerminalControl.WinUI](https://img.shields.io/nuget/v/EasyWindowsTerminalControl.WinUI.svg?style=flat&label=EasyWindowsTerminalControl.WinUI)](https://www.nuget.org/packages/EasyWindowsTerminalControl.WinUI/)
 
-A high performance full-feature WPF / (winui3* beta) terminal control that uses the [Official Windows Terminal](https://github.com/microsoft/terminal) console host for the backend driver.
+A high performance full-feature WPF (.NET Framework and .NET Modern/6.0+) / (winui3* beta) terminal control that uses the [Official Windows Terminal](https://github.com/microsoft/terminal) console host for the backend driver.
 
 ![](TermExample/Screenshot.png)
 
@@ -30,7 +30,7 @@ Technically you could use the control simply as ANSI render frontend if you need
 <!-- /MarkdownTOC -->
 
 ### Disclaimer
-While the core of this control uses the Windows Terminal core control conpty/the wpf control are not yet publicly packaged.  This relies on beta packages so the low level API we use might change in the future. See [Issue #6999 · microsoft/terminal](https://github.com/microsoft/terminal/issues/6999) for details.
+While the core of this control uses the Windows Terminal core control the wpf control is not yet publicly packaged.  This relies on beta packages so the low level API we use might change in the future. See [Issue #6999 · microsoft/terminal](https://github.com/microsoft/terminal/issues/6999) for details.
 
 ## Usage
 `dotnet add package EasyWindowsTerminalControl`
