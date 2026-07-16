@@ -1,21 +1,20 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Windows.Win32;
-using Windows.Win32.Foundation;
-using WinUIEx.Messaging;
-using Windows.System;
-using Windows.Win32.UI.WindowsAndMessaging;
-using Microsoft.UI.Xaml.Automation.Peers;
-using Windows.Foundation;
-using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
-using System.Diagnostics;
-
-using Windows.UI.Core;
-using Microsoft.UI;
 using Microsoft.Terminal.WinUI3;
 using Microsoft.Terminal.WinUI3.WPFImports;
+using Microsoft.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using System.Diagnostics;
 using System.Numerics;
+using Windows.Foundation;
+using Windows.System;
+using Windows.UI.Core;
+using Windows.Win32;
+using Windows.Win32.Foundation;
+using Windows.Win32.UI.WindowsAndMessaging;
+using WinUIEx.Messaging;
+using DispatcherQueue = Microsoft.UI.Dispatching.DispatcherQueue;
 
 
 
@@ -427,7 +426,7 @@ namespace System.Windows.Interop {
 				new Point(0, 0)
 			);
 			var toSize = ActualSize.ToSize();
-			toSize = new Size(toSize.Width*this.XamlRoot.RasterizationScale,toSize.Height * this.XamlRoot.RasterizationScale);
+			toSize = new Size(toSize.Width * this.XamlRoot.RasterizationScale, toSize.Height * this.XamlRoot.RasterizationScale);
 			return AdjustRectForDpi(new Rect(Pt, toSize));
 		}
 
@@ -772,7 +771,7 @@ namespace System.Windows.Interop {
 			// So change here to show async to be consistent with everywhere else (instead of changing everywhere else
 			// to show window sync).            
 			if (vis)
-				PInvoke.ShowWindowAsync(_hwnd,ActivateOnShow ? SHOW_WINDOW_CMD.SW_SHOW : SHOW_WINDOW_CMD.SW_SHOWNA);
+				PInvoke.ShowWindowAsync(_hwnd, ActivateOnShow ? SHOW_WINDOW_CMD.SW_SHOW : SHOW_WINDOW_CMD.SW_SHOWNA);
 			else
 				PInvoke.ShowWindowAsync(_hwnd, SHOW_WINDOW_CMD.SW_HIDE);
 			UpdateWindowPos();

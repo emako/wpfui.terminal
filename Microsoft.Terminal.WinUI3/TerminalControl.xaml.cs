@@ -2,22 +2,18 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 // </copyright>
+using Microsoft.Terminal.WinUI3;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Drawing;
 using System.Threading;
-
-
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-
-using UIColor = Windows.UI.Color;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Automation.Peers;
-using Windows.Win32.UI.WindowsAndMessaging;
 using Windows.Win32;
-using Microsoft.Terminal.WinUI3;
-using System.Diagnostics;
+using Windows.Win32.UI.WindowsAndMessaging;
+using UIColor = Windows.UI.Color;
 namespace Microsoft.Terminal.Wpf {
 
 
@@ -32,13 +28,13 @@ namespace Microsoft.Terminal.Wpf {
 
 			this.InitializeComponent();
 			Init();
-			
+
 
 		}
 
 		private async void TerminalControl_GettingFocus(UIElement sender, GettingFocusEventArgs args) {
-			args.Cancel=true;
-			termContainer.PassFocus();			
+			args.Cancel = true;
+			termContainer.PassFocus();
 		}
 
 		private static int? _ScrollLines;
@@ -65,7 +61,7 @@ namespace Microsoft.Terminal.Wpf {
 			this.PointerWheelChanged += MouseWheelChanged;
 
 			this.RegisterPropertyChangedCallback(UIElement.VisibilityProperty, OnVisibleChanged);
-			IsTabStop=true;
+			IsTabStop = true;
 			this.GettingFocus += TerminalControl_GettingFocus;
 		}
 

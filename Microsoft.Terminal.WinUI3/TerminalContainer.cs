@@ -1,16 +1,15 @@
-using Windows.Win32.Foundation;
-
+using Microsoft.Terminal.WinUI3.WPFImports;
+using Microsoft.Terminal.Wpf;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using Microsoft.UI.Xaml;
-using WinUIEx.Messaging;
-using Microsoft.UI.Xaml.Input;
 using System.Windows.Interop;
-using Microsoft.UI.Xaml.Automation.Peers;
-using Microsoft.Terminal.WinUI3.WPFImports;
-using Microsoft.Terminal.Wpf;
+using Windows.Win32.Foundation;
+using WinUIEx.Messaging;
 
 namespace Microsoft.Terminal.WinUI3 {
 
@@ -35,13 +34,13 @@ namespace Microsoft.Terminal.WinUI3 {
 
 			this.MessageHook += this.TerminalContainer_MessageHook;
 			this.GettingFocus += TerminalContainer_GettingFocus;
-			this.IsTabStop=false;
+			this.IsTabStop = false;
 		}
-		internal void PassFocus(){
+		internal void PassFocus() {
 			NativeMethods.SetFocus(this.hwnd);
 		}
 		private void TerminalContainer_GettingFocus(UIElement sender, GettingFocusEventArgs args) {
-			args.Handled=true;
+			args.Handled = true;
 			Debug.WriteLine($"TerminalContainer_GettingFocus setting to hwnd");
 			PassFocus();
 		}
@@ -263,7 +262,7 @@ namespace Microsoft.Terminal.WinUI3 {
 		protected override HWND BuildWindowCore(HWND hwndParent) {
 			var dpiScale = curDPI;
 			NativeMethods.CreateTerminal(hwndParent, out var hostedHwnd, out this.terminal);
-			this.hwnd =new( hostedHwnd);
+			this.hwnd = new(hostedHwnd);
 
 			this.scrollCallback = this.OnScroll;
 			this.writeCallback = this.OnWrite;
@@ -307,10 +306,10 @@ namespace Microsoft.Terminal.WinUI3 {
 			if (hwnd == this.hwnd) {
 				switch ((WindowsMessages)e.Message.MessageId) {
 					case WindowsMessages.SETFOCUS:
-                        NativeMethods.TerminalSetFocused(this.terminal, true);
+						NativeMethods.TerminalSetFocused(this.terminal, true);
 						break;
 					case WindowsMessages.KILLFOCUS:
-                        NativeMethods.TerminalSetFocused(this.terminal, false);
+						NativeMethods.TerminalSetFocused(this.terminal, false);
 						break;
 					case WindowsMessages.MOUSEACTIVATE:
 						this.Focus(FocusState.Pointer);

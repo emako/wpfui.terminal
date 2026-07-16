@@ -1,12 +1,12 @@
+using EasyWindowsTerminalControl.Internals;
 using Microsoft.Terminal.Wpf;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.IO;
-using Windows.Win32;
-using System.Threading.Tasks;
 using System.Text;
 using System.Text.RegularExpressions;
-using EasyWindowsTerminalControl.Internals;
+using System.Threading.Tasks;
+using Windows.Win32;
 
 namespace EasyWindowsTerminalControl {
 	/// <summary>

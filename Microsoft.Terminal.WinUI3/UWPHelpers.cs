@@ -1,8 +1,8 @@
+using Microsoft.UI.Dispatching;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Dispatching;
 using Windows.Win32;
 using Windows.Win32.Foundation;
 namespace Microsoft.Terminal.WinUI3 {

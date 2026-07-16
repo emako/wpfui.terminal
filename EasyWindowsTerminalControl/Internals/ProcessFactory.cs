@@ -2,9 +2,8 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Windows.Win32;
-using Windows.Win32.System.Threading;
 using Windows.Win32.Security;
-using Windows.Win32.Foundation;
+using Windows.Win32.System.Threading;
 
 namespace EasyWindowsTerminalControl.Internals {
 	public interface IProcess : IDisposable {
@@ -28,7 +27,7 @@ namespace EasyWindowsTerminalControl.Internals {
 			public bool HasExited => Process.HasExited;
 			public void WaitForExit() => Process.WaitForExit();
 			public void Kill(bool EntireProcessTree = false) => Process.Kill(
-#if ! NET47_OR_GREATER
+#if !NET47_OR_GREATER
 				EntireProcessTree
 #endif
 				);

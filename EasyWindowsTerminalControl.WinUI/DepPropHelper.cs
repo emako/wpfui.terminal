@@ -1,9 +1,8 @@
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
-
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 
 namespace EasyWindowsTerminalControl.Internals {

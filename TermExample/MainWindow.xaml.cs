@@ -66,7 +66,7 @@ namespace TermExample.WinUI {
 			private static Color AlphaOverrideColor(Color color, byte alphaOverride) => Color.FromArgb(alphaOverride, color.R, color.G, color.B);
 
 			private static readonly Color BackroundColor = Color.FromArgb(255, 0, 0, 30);
-#if ! NET47_OR_GREATER
+#if !NET47_OR_GREATER
 			private static Windows.UI.Color BackroundColorUI => Windows.UI.Color.FromArgb(BackroundColor.A, BackroundColor.R, BackroundColor.G, BackroundColor.B);
 #endif
 
@@ -101,7 +101,7 @@ namespace TermExample.WinUI {
 				basicTermControl.ConPTYTerm.ConsoleOutputLog.Clear();
 			else
 				MessageBoxShow(msg);
-			
+
 			RefocusKB();
 		}
 
@@ -149,12 +149,12 @@ namespace TermExample.WinUI {
 		}
 		private void MessageBoxShow(string msg) => MessageBox.Show(msg);
 #else
-		
+
 		private async void MessageBoxShow(string msg) {
 			var dialog = new ContentDialog {
-				Content = new TextBlock { Text = msg.Replace("\n","\r\n"), TextWrapping = TextWrapping.Wrap },
+				Content = new TextBlock { Text = msg.Replace("\n", "\r\n"), TextWrapping = TextWrapping.Wrap },
 				CloseButtonText = "OK"
-				
+
 			};
 			dialog.XamlRoot = gridMain.XamlRoot;
 			basicTermControl.Visibility = Visibility.Collapsed;

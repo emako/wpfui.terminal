@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Interop;
 using Microsoft.UI.Xaml.Automation.Peers;
+using System;
+using System.Windows.Interop;
 using Windows.System;
 using WinUIEx.Messaging;
 

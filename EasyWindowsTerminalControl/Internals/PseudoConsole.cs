@@ -34,10 +34,10 @@ namespace EasyWindowsTerminalControl.Internals {
 			}
 		}
 		public static PseudoConsole Create(SafeFileHandle inputReadSide, SafeFileHandle outputWriteSide, int width, int height) {
-			if (width == 0 || height == 0){
+			if (width == 0 || height == 0) {
 				Debug.WriteLine($"PseudoConsole Create called with 0 width height");
 				width = 80;
-				height=30;
+				height = 30;
 			}
 			var createResult = PseudoConsoleApi.CreatePseudoConsole(
 				new COORD { X = (short)width, Y = (short)height },

@@ -17,8 +17,6 @@ using Microsoft.UI.Xaml.Input;
 using EasyWindowsTerminalControl.Internals;
 using Microsoft.Terminal.Wpf;
 
-using System.Diagnostics;
-
 
 namespace EasyWindowsTerminalControl {
 	public class EasyTerminalControl : UserControl {

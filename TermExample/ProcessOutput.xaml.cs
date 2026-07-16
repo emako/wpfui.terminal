@@ -1,21 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using EasyWindowsTerminalControl;
 using Microsoft.Terminal.Wpf;
 using Microsoft.Win32;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace TermExample {
 	/// <summary>
@@ -28,13 +19,13 @@ namespace TermExample {
 		public ProcessOutput() {
 			DataContext = new DataBinds();
 			InitializeComponent();
-			basicTermControl.ConPTYTerm = new ReadDelimitedTermPTY(delimiter:USE_DELIMITER);
+			basicTermControl.ConPTYTerm = new ReadDelimitedTermPTY(delimiter: USE_DELIMITER);
 		}
 		public const string HIGHLIGHT_PATH = @"highlight.exe";
 		public class DataBinds : INotifyPropertyChanged {
-			public void TriggerPropChanged(string prop) => PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(prop));
-			public string LocalHighlightPath =>  Environment.GetEnvironmentVariable("HIGHLIGHT_PATH") ?? HIGHLIGHT_PATH;
-			
+			public void TriggerPropChanged(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+			public string LocalHighlightPath => Environment.GetEnvironmentVariable("HIGHLIGHT_PATH") ?? HIGHLIGHT_PATH;
+
 			public string StartupCommand => $"{LocalHighlightPath} --force -O truecolor --style=moria --service-mode --disable-echo --wrap";
 			private static uint ColorToVal(Color color) => BitConverter.ToUInt32(new byte[] { color.R, color.G, color.B, color.A }, 0);
 			private static readonly Color BackroundColor = Colors.DarkBlue;
@@ -66,7 +57,7 @@ namespace TermExample {
 
 		}
 		private DateTime startTime;
-		private async void DoFile(string fileName, bool clear=true) {
+		private async void DoFile(string fileName, bool clear = true) {
 			var txt = File.ReadAllText(fileName);
 			if (clear) {
 				basicTermControl.ConPTYTerm.ClearUITerminal(true);
@@ -74,10 +65,10 @@ namespace TermExample {
 			}
 
 			var writeStr = $"tag={USE_DELIMITER};line-length={basicTermControl.Terminal.Columns};eof={FILE_SEPARATOR};syntax={Path.GetFileName(fileName)};\r\n[FILE_CONTENT]\n\n\r{FILE_SEPARATOR}\r\n";
-			writeStr=writeStr.Replace("[FILE_CONTENT]",txt);
+			writeStr = writeStr.Replace("[FILE_CONTENT]", txt);
 
 			writeStr = writeStr.Replace("\r", "").Replace("\n", "\r");
-			
+
 			startTime = DateTime.Now;
 			basicTermControl.ConPTYTerm.WriteToTerm(writeStr);
 			await Task.Delay(100);
@@ -90,7 +81,7 @@ namespace TermExample {
 		}
 		private void ClearConsoleHard(object sender, RoutedEventArgs e) {
 			basicTermControl.ConPTYTerm.ClearUITerminal(true);
-        }
+		}
 
 		private void ClearConsoleSoft(object sender, RoutedEventArgs e) {
 			basicTermControl.ConPTYTerm.ClearUITerminal(false);

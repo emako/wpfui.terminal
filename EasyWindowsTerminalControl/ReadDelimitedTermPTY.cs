@@ -12,7 +12,7 @@ namespace EasyWindowsTerminalControl {
 		/// <param name="USE_BINARY_WRITER"></param>
 		/// <param name="delimiter"></param>
 		/// <param name="MaxWaitTimeoutForDelimiter">Maximum time to buffer output waiting for a delimiter since the last delimiter was seen. Once this time passes the entire buffer is sent on the next output.</param>
-		public ReadDelimitedTermPTY(int READ_BUFFER_SIZE = 1024 * 16, bool USE_BINARY_WRITER=false, ReadOnlySpan<char> delimiter=default, TimeSpan MaxWaitTimeoutForDelimiter = default) : base(READ_BUFFER_SIZE,USE_BINARY_WRITER) {
+		public ReadDelimitedTermPTY(int READ_BUFFER_SIZE = 1024 * 16, bool USE_BINARY_WRITER = false, ReadOnlySpan<char> delimiter = default, TimeSpan MaxWaitTimeoutForDelimiter = default) : base(READ_BUFFER_SIZE, USE_BINARY_WRITER) {
 			if (delimiter != default)
 				SetReadOutputDelimiter(delimiter, MaxWaitTimeoutForDelimiter);
 		}
@@ -49,8 +49,8 @@ namespace EasyWindowsTerminalControl {
 				}
 				state.curBuffer = state.entireBuffer.Slice(curBufferOffset);
 			}
-			if (sendSpan.IsEmpty && delimiterTimeout != default && lastDelimiterSeen != default){
-				if ((DateTime.Now - lastDelimiterSeen) > delimiterTimeout){
+			if (sendSpan.IsEmpty && delimiterTimeout != default && lastDelimiterSeen != default) {
+				if ((DateTime.Now - lastDelimiterSeen) > delimiterTimeout) {
 					sendSpan = state.entireBuffer;
 					curBufferOffset = lastDelimEndOffset = 0;
 					lastDelimiterSeen = DateTime.Now;
