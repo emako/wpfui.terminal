@@ -25,10 +25,10 @@ Add the terminal XML namespace to your XAML:
 <Window xmlns:t="http://schemas.lepo.co/wpfui/2022/xaml/terminal">
 ```
 
-Then place a `TerminalControl` anywhere in your UI:
+Then place an `ExtendedTerminalControl` anywhere in your UI:
 
 ```xaml
-<t:TerminalControl
+<t:ExtendedTerminalControl
     StartupCommandLine="powershell.exe"
     Theme="Dark"
     FontFamilyWhenSettingTheme="Cascadia Code"
@@ -37,7 +37,7 @@ Then place a `TerminalControl` anywhere in your UI:
 
 ### 👋 Controls
 
-#### TerminalControl
+#### ExtendedTerminalControl
 
 The main WPF user control that hosts a full terminal emulator. It wraps `Microsoft.Terminal.Wpf.TerminalControl` and a `TermPTY` backend.
 
