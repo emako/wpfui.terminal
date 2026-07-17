@@ -21,6 +21,9 @@ public class ExtendedTerminalControl : UserControl, IDisposable
 
     public ExtendedTerminalControl()
     {
+        Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Wpf.Ui.Terminal;component/Controls/ScrollViewer/ScrollViewer.xaml") });
+        Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("pack://application:,,,/Wpf.Ui.Terminal;component/Controls/ScrollBar/ScrollBar.xaml") });
+
         InitializeComponent();
         SetKBCaptureOptions();
     }
