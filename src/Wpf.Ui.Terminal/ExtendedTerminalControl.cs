@@ -84,10 +84,15 @@ public class ExtendedTerminalControl : UserControl, IDisposable
     }
 
     [Description("Direct access to the UI terminal control itself that handles rendering")]
-    public Microsoft.Terminal.Wpf.TerminalControl Terminal
+    public TerminalControl Terminal
     {
-        get => (Microsoft.Terminal.Wpf.TerminalControl)GetValue(TerminalPropertyKey.DependencyProperty);
+        get => (TerminalControl)GetValue(TerminalPropertyKey.DependencyProperty);
         set => SetValue(TerminalPropertyKey, value);
+    }
+
+    public ExtendedTerminalControl(TerminalControl terminal)
+    {
+        Terminal = terminal;
     }
 
     private static void OnTermChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
