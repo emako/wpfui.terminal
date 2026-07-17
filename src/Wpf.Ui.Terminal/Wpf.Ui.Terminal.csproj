@@ -16,9 +16,9 @@
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
         <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <AssemblyVersion>1.0.38</AssemblyVersion>
-        <FileVersion>1.0.38</FileVersion>
-        <Version>$(VersionPrefix)1.0.38</Version>
+        <AssemblyVersion>1.0.39</AssemblyVersion>
+        <FileVersion>1.0.39</FileVersion>
+        <Version>$(VersionPrefix)1.0.39</Version>
         <Authors>ema</Authors>
         <Company>ema</Company>
         <Description>A high performance full-feature WPF terminal control that uses the Official Windows Terminal console host for the backend driver.</Description>
